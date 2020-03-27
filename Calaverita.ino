@@ -51,7 +51,7 @@ void setup()
     pinMode(pin_B, OUTPUT);
     pinMode(pin_trig, OUTPUT);
     pinMode(pin_echo, INPUT);
-    digitalWrite(trig, LOW);
+    digitalWrite(pin_trig, LOW);
 }
 
 void loop()
@@ -62,10 +62,10 @@ void loop()
 
 float medir()
 {
-  digitalWrite(trig, HIGH);
+  digitalWrite(pin_trig, HIGH);
   delayMicroseconds(10);
-  digitalWrite(trig, LOW);
-  tiempo = pulseIn(echo, HIGH);
+  digitalWrite(pin_trig, LOW);
+  tiempo = pulseIn(pin_echo, HIGH);
   distancia = tiempo * 0.017;
   return distancia;
 }
@@ -75,15 +75,16 @@ void activar(int centim, int cancion, int color)
   if(dist <= centim)
   {
     //AQUÍ VA EL FOR 
-    tone(buz, DO);
+    quijada.write(5);
+    tone(pin_buzzer, DO);
     delay(200);
-    tone(buz, DO);
+    tone(pin_buzzer, DO);
     delay(200);
-    quijada.write);
+    quijada.write(90);
   }
   else
   {
     quijada.write(90);
-    noTone(buz);
+    noTone(pin_buzzer);
   }
 }
