@@ -9,22 +9,36 @@
 #include<Servo.h>
 #include "Calaverita.h"
 
-Calaverita:: Calaverita(int p_buzzer, int p_trig, int p_echo, int p_R, int p_G, int p_B, int p_servo)
+/* STRANGER THINGS */
+int st_nn = 8;
+int st_n[] = {c4, e4, g4, b4, c5, b4, g4, e4};
+int st_t = q;
+
+/* EXORCISTA */
+int e_nn = 14;
+int e_n[] = {e4, a4, e4, b4, e5, g4, a4, e4, c5, e4, d5, e4, b4, c5};
+int e_t = q;
+
+Calaverita:: Calaverita(int tipo)
 {
-  pinMode(p_buzzer, OUTPUT);
-  pinMode(p_trig, OUTPUT);
-  pinMode(p_echo, INPUT);
-  pinMode(p_R, OUTPUT);
-  pinMode(p_G, OUTPUT);
-  pinMode(p_B, OUTPUT);
-  quijada.attach(p_servo);
-  _p_buzzer = p_buzzer;
-  _p_trig = p_trig;
-  _p_echo = p_echo;
-  _p_R = p_R;
-  _p_G = p_G;
-  _p_B = p_B;
-  _p_servo = p_servo;
+  _p_buzzer = 11;
+  _p_trig = 10;
+  _p_echo = 9;
+  _p_R = 8;
+  _p_G = 6;
+  _p_B = 7;
+  _p_servo = 5;
+  _tipo = tipo;
+  digitalWrite(_p_R, !_tipo);
+  digitalWrite(_p_G, !_tipo);
+  digitalWrite(_p_B, !_tipo);
+  pinMode(_p_buzzer, OUTPUT);
+  pinMode(_p_trig, OUTPUT);
+  pinMode(_p_echo, INPUT);
+  pinMode(_p_R, OUTPUT);
+  pinMode(_p_G, OUTPUT);
+  pinMode(_p_B, OUTPUT);
+  quijada.attach(_p_servo);
 }
 
 float Calaverita::medir()
@@ -39,14 +53,67 @@ float Calaverita::medir()
   return distancia;
 }
 
-void Calaverita::activar(int color)
+void Calaverita::activar(int dist, int cancion, int color)
 {
   
-  if(color == 1)
+  float distancia = Calaverita::medir();
+  if(distancia <= dist)
   {
-    digitalWrite(_p_R, HIGH);
-    delay(500);
-    digitalWrite(_p_R, LOW);
-    delay(500);
+    color_e(color, _tipo);
+    color_a(color, _tipo);
   }
+}
+
+void Calaverita::color_e(int color, int tipo)
+{
+  switch(color)
+  {
+    case 1:
+      digitalWrite(_p_R, tipo);
+      digitalWrite(_p_G, !tipo);
+      digitalWrite(_p_B, !tipo);
+      break;
+    case 2:
+      digitalWrite(_p_R, !tipo);
+      digitalWrite(_p_G, tipo);
+      digitalWrite(_p_B, !tipo);
+      break;     
+    case 3:
+      digitalWrite(_p_R, !tipo);
+      digitalWrite(_p_G, !tipo);
+      digitalWrite(_p_B, tipo);
+      break;   
+    case 4:
+      digitalWrite(_p_R, tipo);
+      digitalWrite(_p_G, !tipo);
+      digitalWrite(_p_B, tipo);
+      break;   
+    case 5:
+      digitalWrite(_p_R, tipo);
+      digitalWrite(_p_G, tipo);
+      digitalWrite(_p_B, !tipo);
+      break;   
+    case 6:
+      digitalWrite(_p_R, !tipo);
+      digitalWrite(_p_G, tipo);
+      digitalWrite(_p_B, tipo);
+      break;   
+    case 7:
+      digitalWrite(_p_R, tipo);
+      digitalWrite(_p_G, tipo);
+      digitalWrite(_p_B, tipo);
+      break;   
+    case 8:
+      digitalWrite(_p_R, random(2));
+      digitalWrite(_p_G, random(2));
+      digitalWrite(_p_B, random(2));
+      break;
+  } 
+}
+
+void Calaverita::color_a(int color, int tipo)
+{
+  digitalWrite(_p_R, !tipo);
+  digitalWrite(_p_G, !tipo);
+  digitalWrite(_p_B, !tipo);
 }
