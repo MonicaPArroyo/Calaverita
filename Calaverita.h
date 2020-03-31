@@ -55,6 +55,7 @@
   #define a5  880
   #define a5s 932.3
   #define b5  987.8
+  #define p_e 30000
 
   /* TIEMPOS */
   #define e 500

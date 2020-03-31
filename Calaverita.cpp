@@ -12,12 +12,17 @@
 /* STRANGER THINGS */
 int st_nn = 8;
 int st_n[] = {c4, e4, g4, b4, c5, b4, g4, e4};
-int st_t = q;
+int st_t[] = {q, q, q, q, q, q, q, q};
 
 /* EXORCISTA */
 int e_nn = 14;
 int e_n[] = {e4, a4, e4, b4, e5, g4, a4, e4, c5, e4, d5, e4, b4, c5};
-int e_t = q;
+int e_t[] = {q, q, q, q, q, q, q, q, q, q, q, q, q, q};
+
+/* HELLO ZEPP */
+int h_nn = 13;
+int h_n[] = {d4, e4, f4, p_e, d4, e4, f4, p_e, e4, d4, e4, f4, g4};
+int h_t[] = {q, q, q, q*3, q, q, q, q*2, q, q, q, q, q};
 
 Calaverita:: Calaverita(int tipo)
 {
