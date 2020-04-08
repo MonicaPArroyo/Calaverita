@@ -9,85 +9,58 @@
 #include<Servo.h>
 #include "Calaverita.h"
 
-/* STRANGER THINGS */
-int st_nn = 8;
-int st_n[] = {c4, e4, g4, b4, c5, b4, g4, e4};
-int st_t[] = {q, q, q, q, q, q, q, q};
+/* MATRIZ DE CANCIONES */
+int notas[6][32] =
+{
+  {c4,  e4,  g4,  b4,  c5,  b4,  g4,  e4},  // STRANGER THINGS
+  {e4,  a4,  e4,  b4,  e5,  g4,  a4,  e4,  c5,  e4,  d5,  e4,  b4,  c5},  // EXORCISTA
+  {d4,  e4,  f4,  d4,  e4,  f4,  e4,  d4,  e4,  f4,  g4}, // HELLO ZEPP
+  {c6s, f5s, p_e, f5s, c6s, f5s, p_e, f5s, c6s, f5s, d6,  f5s}, // HALLOWEEN
+  {b4,  f5,  f5s, f5,  b4,  p_e, b4,  f5,  f5s, f5,  b4,  p_e, b4,  f5,  f5s, f5},  // WALKING DEAD
+  {g4,  p_e, g4,  p_e, g4,  p_e, g4,  g4s, f4,  p_e, f4,  p_e, f4,  p_e, f4,  g4s, g4, p_e, g4,  p_e, g4,  p_e, g4,  g4s, f4,  p_e, f4,  g4s, g4,  p_e, g4,  p_e} ///* THIS IS HALLOWEEN */
+};
 
-/* EXORCISTA */
-int e_nn = 14;
-int e_n[] = {e4, a4, e4, b4, e5, g4, a4, e4, c5, e4, d5, e4, b4, c5};
-int e_t[] = {q, q, q, q, q, q, q, q, q, q, q, q, q, q};
+int tiempos[6][32] =
+{
+  {q,  q,  q,  q,  q,  q,  q,  q},  ///* STRANGER THINGS */
+  {q,  q,  q,  q,  q,  q,  q,  q,  q,  q,  q,  q,  q,  q},  ///* EXORCISTA */
+  {q,  q,  q4, q,  q,  q2, q,  q,  q,  q,  q2}, ///* HELLO ZEPP */
+  {q,  q,  10, q,  q,  q,  10, q,  q,  q,  q,  q},  ///* HALLOWEEN */
+  {q,  q,  q,  q,  q,  10, q,  q,  q,  q,  q,  10, q,  q,  q,  q},  ///* WALKING DEAD */
+  {td, t,  td, t,  td, t,  td, td, td, t,  td, t,  td, t,  td, td, td, t,  td, t,  td, t,  td, td, td, t,  td, td, td, t,  td, t} ///* THIS IS HALLOWEEN */
+};
 
-/* HELLO ZEPP */
-int h_nn = 13;
-int h_n[] = {d4, e4, f4, p_e, d4, e4, f4, p_e, e4, d4, e4, f4, g4};
-int h_t[] = {q, q, q, q*3, q, q, q, q*2, q, q, q, q, q};
+int n_notas[6] = {8, 14, 11, 12, 16, 32};
 
-//float C4 = 261.6,
-//      C4S = 277.1,
-//      D4 = 293.7,
-//      D4S = 311.1,
-//      E4 = 329.6,
-//      F4 = 349.2,
-//      F4S = 370,
-//      G4 = 392,
-//      G4S = 415.3,
-//      a4 = 440,
-//      A4S = 466.2,
-//      B4 = 493.9,
-//      C5 = 523.3,
-//      C5S = 554.4,
-//      D5 = 587.3,
-//      D5S = 622.3,
-//      E5 = 659.3,
-//      F5 = 698.5,
-//      F5S = 734,
-//      G5 = 784,
-//      G5S = 830.6,
-//      a5 = 880,
-//      A5S = 932.3,
-//      B5 = 987.8,
-//      C6 = 1046.5,
-//      C6S =1108.7,
-//      D6 = 1174.7,
-//      D6S = 1244.5,
-//      E6 = 1318.5,
-//      F6 = 1396.91,
-//      F6S = 1478,
-//      G6 = 1568,
-//      G6S = 1661.2,
-//      a6 = 1760,
-//      A6S = 1864.7,
-//      B6 = 1975.5,
-//      PAU = 0; 
+//int st_nn = 8;
+//int st_n[] = {c4, e4, g4, b4, c5, b4, g4, e4};
+//int st_t[] = {q, q, q, q, q, q, q, q};
 //
-//int   e=800,
-//      m = e/2,
-//      q = e/4,
-//      d = e*2;
 
-//HALLOWEEN
-//int melodia[] = {C6S, F5S, PAU, F5S, C6S, F5S, PAU, F5S, C6S, F5S, D6,F5S};
-//int duracionNota[] = {q,q,10,q,q,q,10, q, q, q, q, q};
-//int tam =12;
-//SAW
-//int melodia[] = {D4,E4,F4,D4,E4,F4, E4, D4, E4, F4, G4};
-//int duracionNota[] = {q,q,q*4,q,q,q*2,q,q,q,q,q*2};
-//int tam =11;
+//int e_nn = 14;
+//int e_n[] = {e4, a4, e4, b4, e5, g4, a4, e4, c5, e4, d5, e4, b4, c5};
+//int e_t[] = {q, q, q, q, q, q, q, q, q, q, q, q, q, q};
+//
 
-//WALKING DEAD
-//int melodia[] = {B4, F5, F5S, F5, B4, PAU, B4, F5, F5S, F5, B4, PAU, B4, F5, F5S, F5};
-//int duracionNota[] = {q, q, q, q, q,10, q,q,q,q,q,10,q,q,q, q};
-//int tam =16;
+//int he_nn = 11;
+//int he_n[] = {d4, e4, f4, d4, e4, f4, e4, d4, e4, f4, g4};
+//int he_t[] = {q, q, q4, q, q, q2, q, q, q, q, q2};
+//
 
+//int ha_nn = 12;
+//int ha_n[] = {c6s, f5s, p_e, f5s, c6s, f5s, p_e, f5s, c6s, f5s, d6, f5s};
+//int ha_t[] = {q, q, 10, q, q, q, 10, q, q, q, q, q};
+//
 
-//THIS IS HALLOWEEN
-//int t = 300;
-//int qu = 310;
-//int melodia[] = {G4, PAU, G4, PAU, G4, PAU, G4, G4S, F4, PAU, F4, PAU, F4, PAU, F4, G4S, G4, PAU, G4, PAU, G4, PAU, G4, G4S, F4, PAU, F4, G4S, G4, PAU, G4, PAU};
-//int duracionNota[] = {qu, t, qu, t, qu, t, qu, qu, qu, t, qu, t, qu, t, qu, qu, qu, t, qu, t, qu, t, qu, qu, qu, t, qu, qu, qu, t, qu, t};
-//int tam =32;
+//int w_nn = 16;
+//int w_n[] = {b4, f5, f5s, f5, b4, p_e, b4, f5, f5s, f5, b4, p_e, b4, f5, f5s, f5};
+//int w_t[] = {q, q, q, q, q, 10, q, q, q, q, q, 10, q, q, q, q};
+//
+
+//int th_nn = 32;
+//int th_n[] = {g4, p_e, g4, p_e, g4, p_e, g4, g4s, f4, p_e, f4, p_e, f4, p_e, f4, g4s, g4, p_e, g4, p_e, g4, p_e, g4, g4s, f4, p_e, f4, g4s, g4, p_e, g4, p_e};
+//int th_t[] = {td, t, td, t, td, t, td, td, td, t, td, t, td, t, td, td, td, t, td, t, td, t, td, td, td, t, td, td, td, t, td, t};
+
 
 Calaverita:: Calaverita(int tipo)
 {
@@ -111,6 +84,33 @@ Calaverita:: Calaverita(int tipo)
   quijada.attach(_p_servo);
 }
 
+void Calaverita::activar(int dist, int cancion, int color)
+{
+
+  float distancia = Calaverita::medir();
+  if (distancia <= dist)
+  {
+    //for(int x = 0; x <
+    color_e(color);
+    color_a(color);
+  }
+  //  if(dist <= centim)
+  //  {
+  //    //AQUÍ VA EL FOR
+  //    //quijada.write(5);
+  //    //tone(pin_buzzer, DO);
+  //    delay(200);
+  //    //tone(pin_buzzer, DO);
+  //    delay(200);
+  //    //quijada.write(90);
+  //  }
+  //  else
+  //  {
+  //    //quijada.write(90);
+  //    //noTone(pin_buzzer);
+  //  }
+}
+
 float Calaverita::medir()
 {
   int tiempo;
@@ -123,67 +123,56 @@ float Calaverita::medir()
   return distancia;
 }
 
-void Calaverita::activar(int dist, int cancion, int color)
+void Calaverita::color_e(int color)
 {
-  
-  float distancia = Calaverita::medir();
-  if(distancia <= dist)
-  {
-    color_e(color, _tipo);
-    color_a(color, _tipo);
-  }
-}
-
-void Calaverita::color_e(int color, int tipo)
-{
-  switch(color)
+  switch (color)
   {
     case 1:
-      digitalWrite(_p_R, tipo);
-      digitalWrite(_p_G, !tipo);
-      digitalWrite(_p_B, !tipo);
+      digitalWrite(_p_R, _tipo);
+      digitalWrite(_p_G, !_tipo);
+      digitalWrite(_p_B, !_tipo);
       break;
     case 2:
-      digitalWrite(_p_R, !tipo);
-      digitalWrite(_p_G, tipo);
-      digitalWrite(_p_B, !tipo);
-      break;     
+      digitalWrite(_p_R, !_tipo);
+      digitalWrite(_p_G, _tipo);
+      digitalWrite(_p_B, !_tipo);
+      break;
     case 3:
-      digitalWrite(_p_R, !tipo);
-      digitalWrite(_p_G, !tipo);
-      digitalWrite(_p_B, tipo);
-      break;   
+      digitalWrite(_p_R, !_tipo);
+      digitalWrite(_p_G, !_tipo);
+      digitalWrite(_p_B, _tipo);
+      break;
     case 4:
-      digitalWrite(_p_R, tipo);
-      digitalWrite(_p_G, !tipo);
-      digitalWrite(_p_B, tipo);
-      break;   
+      digitalWrite(_p_R, _tipo);
+      digitalWrite(_p_G, !_tipo);
+      digitalWrite(_p_B, _tipo);
+      break;
     case 5:
-      digitalWrite(_p_R, tipo);
-      digitalWrite(_p_G, tipo);
-      digitalWrite(_p_B, !tipo);
-      break;   
+      digitalWrite(_p_R, _tipo);
+      digitalWrite(_p_G, _tipo);
+      digitalWrite(_p_B, !_tipo);
+      break;
     case 6:
-      digitalWrite(_p_R, !tipo);
-      digitalWrite(_p_G, tipo);
-      digitalWrite(_p_B, tipo);
-      break;   
+      digitalWrite(_p_R, !_tipo);
+      digitalWrite(_p_G, _tipo);
+      digitalWrite(_p_B, _tipo);
+      break;
     case 7:
-      digitalWrite(_p_R, tipo);
-      digitalWrite(_p_G, tipo);
-      digitalWrite(_p_B, tipo);
-      break;   
+      digitalWrite(_p_R, _tipo);
+      digitalWrite(_p_G, _tipo);
+      digitalWrite(_p_B, _tipo);
+      break;
     case 8:
       digitalWrite(_p_R, random(2));
       digitalWrite(_p_G, random(2));
       digitalWrite(_p_B, random(2));
       break;
-  } 
+  }
 }
 
-void Calaverita::color_a(int color, int tipo)
+void Calaverita::color_a(int color)
 {
-  digitalWrite(_p_R, !tipo);
-  digitalWrite(_p_G, !tipo);
-  digitalWrite(_p_B, !tipo);
+  digitalWrite(_p_R, !_tipo);
+  digitalWrite(_p_G, !_tipo);
+  digitalWrite(_p_B, !_tipo);
 }
