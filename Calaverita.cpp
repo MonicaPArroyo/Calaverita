@@ -9,68 +9,47 @@
 #include<Servo.h>
 #include "Calaverita.h"
 
+Servo quijada;
 /* MATRIZ DE CANCIONES */
 int notas[6][32] =
 {
   {c4,  e4,  g4,  b4,  c5,  b4,  g4,  e4},  // STRANGER THINGS
-  {e4,  a4,  e4,  b4,  e5,  g4,  a4,  e4,  c5,  e4,  d5,  e4,  b4,  c5},  // EXORCISTA
   {d4,  e4,  f4,  d4,  e4,  f4,  e4,  d4,  e4,  f4,  g4}, // HELLO ZEPP
   {c6s, f5s, p_e, f5s, c6s, f5s, p_e, f5s, c6s, f5s, d6,  f5s}, // HALLOWEEN
+  {e4,  a4,  e4,  b4,  e5,  g4,  a4,  e4,  c5,  e4,  d5,  e4,  b4,  c5},  // EXORCISTA
   {b4,  f5,  f5s, f5,  b4,  p_e, b4,  f5,  f5s, f5,  b4,  p_e, b4,  f5,  f5s, f5},  // WALKING DEAD
-  {g4,  p_e, g4,  p_e, g4,  p_e, g4,  g4s, f4,  p_e, f4,  p_e, f4,  p_e, f4,  g4s, g4, p_e, g4,  p_e, g4,  p_e, g4,  g4s, f4,  p_e, f4,  g4s, g4,  p_e, g4,  p_e} ///* THIS IS HALLOWEEN */
+  {g4,  p_e, g4,  p_e, g4,  p_e, g4,  g4s, f4,  p_e, f4,  p_e, f4,  p_e, f4,  g4s, g4, p_e, g4,  p_e, g4,  p_e, g4,  g4s, f4,  p_e, f4,  g4s, g4,  p_e, g4,  p_e} // THIS IS HALLOWEEN
 };
 
 int tiempos[6][32] =
 {
-  {q,  q,  q,  q,  q,  q,  q,  q},  ///* STRANGER THINGS */
-  {q,  q,  q,  q,  q,  q,  q,  q,  q,  q,  q,  q,  q,  q},  ///* EXORCISTA */
-  {q,  q,  q4, q,  q,  q2, q,  q,  q,  q,  q2}, ///* HELLO ZEPP */
-  {q,  q,  10, q,  q,  q,  10, q,  q,  q,  q,  q},  ///* HALLOWEEN */
-  {q,  q,  q,  q,  q,  10, q,  q,  q,  q,  q,  10, q,  q,  q,  q},  ///* WALKING DEAD */
-  {td, t,  td, t,  td, t,  td, td, td, t,  td, t,  td, t,  td, td, td, t,  td, t,  td, t,  td, td, td, t,  td, td, td, t,  td, t} ///* THIS IS HALLOWEEN */
+  {q,  q,  q,  q,  q,  q,  q,  q},  // STRANGER THINGS
+  {q,  q,  q4, q,  q,  q2, q,  q,  q,  q,  q2}, // HELLO ZEPP
+  {q,  q,  10, q,  q,  q,  10, q,  q,  q,  q,  q},  // HALLOWEEN
+  {q,  q,  q,  q,  q,  q,  q,  q,  q,  q,  q,  q,  q,  q},  // EXORCISTA
+  {q,  q,  q,  q,  q,  10, q,  q,  q,  q,  q,  10, q,  q,  q,  q},  // WALKING DEAD
+  {td, t,  td, t,  td, t,  td, td, td, t,  td, t,  td, t,  td, td, td, t,  td, t,  td, t,  td, td, td, t,  td, td, td, t,  td, t} // THIS IS HALLOWEEN
 };
 
-int n_notas[6] = {8, 14, 11, 12, 16, 32};
-
-//int st_nn = 8;
-//int st_n[] = {c4, e4, g4, b4, c5, b4, g4, e4};
-//int st_t[] = {q, q, q, q, q, q, q, q};
-//
-
-//int e_nn = 14;
-//int e_n[] = {e4, a4, e4, b4, e5, g4, a4, e4, c5, e4, d5, e4, b4, c5};
-//int e_t[] = {q, q, q, q, q, q, q, q, q, q, q, q, q, q};
-//
-
-//int he_nn = 11;
-//int he_n[] = {d4, e4, f4, d4, e4, f4, e4, d4, e4, f4, g4};
-//int he_t[] = {q, q, q4, q, q, q2, q, q, q, q, q2};
-//
-
-//int ha_nn = 12;
-//int ha_n[] = {c6s, f5s, p_e, f5s, c6s, f5s, p_e, f5s, c6s, f5s, d6, f5s};
-//int ha_t[] = {q, q, 10, q, q, q, 10, q, q, q, q, q};
-//
-
-//int w_nn = 16;
-//int w_n[] = {b4, f5, f5s, f5, b4, p_e, b4, f5, f5s, f5, b4, p_e, b4, f5, f5s, f5};
-//int w_t[] = {q, q, q, q, q, 10, q, q, q, q, q, 10, q, q, q, q};
-//
-
-//int th_nn = 32;
-//int th_n[] = {g4, p_e, g4, p_e, g4, p_e, g4, g4s, f4, p_e, f4, p_e, f4, p_e, f4, g4s, g4, p_e, g4, p_e, g4, p_e, g4, g4s, f4, p_e, f4, g4s, g4, p_e, g4, p_e};
-//int th_t[] = {td, t, td, t, td, t, td, td, td, t, td, t, td, t, td, td, td, t, td, t, td, t, td, td, td, t, td, td, td, t, td, t};
-
+int n_notas[6] = 
+{
+  8,  // STRANGER THINGS
+  11, // HELLO ZEPP
+  12, // HALLOWEEN
+  14, // EXORCISTA
+  16, // WALKING DEAD
+  32  // THIS IS HALLOWEEN
+};
 
 Calaverita:: Calaverita(int tipo)
 {
   _p_buzzer = 11;
   _p_trig = 10;
   _p_echo = 9;
-  _p_R = 8;
-  _p_G = 6;
-  _p_B = 7;
-  _p_servo = 5;
+  _p_R = 7;
+  _p_G = 5;
+  _p_B = 6;
+  _p_servo = 3;
   _tipo = tipo;
   digitalWrite(_p_R, !_tipo);
   digitalWrite(_p_G, !_tipo);
@@ -88,11 +67,41 @@ void Calaverita::activar(int dist, int cancion, int color)
 {
 
   float distancia = Calaverita::medir();
+  int tiempo_an = 0;
+  int tiempo_ac;
+  int bandera = 0;
+  
   if (distancia <= dist)
   {
-    //for(int x = 0; x <
-    color_e(color);
-    color_a(color);
+    for(int x = 0; x < n_notas[cancion]; x ++)
+    {
+      tone(_p_buzzer, notas[cancion][x]);
+      delay(tiempos[cancion][x]);
+      noTone(_p_buzzer);
+      tiempo_ac = millis();
+      if (tiempo_ac - tiempo_an > 400) //VERIFICAR ESTE NÚMERO
+      {
+        tiempo_an = tiempo_ac;
+        if(!bandera)
+        {
+          quijada.write(0);
+          Calaverita::color_a();
+        }
+        else
+        {
+          quijada.write(20);
+          Calaverita::color_e(color);
+        }
+        bandera = !bandera;
+      }
+      if(Calaverita::medir() > dist) break;
+    }
+  }
+  else
+  {
+    noTone(_p_buzzer);
+    color_a();
+    delay(500);
   }
   //  if(dist <= centim)
   //  {
@@ -170,7 +179,7 @@ void Calaverita::color_e(int color)
   }
 }
 
-void Calaverita::color_a(int color)
+void Calaverita::color_a()
 {
   digitalWrite(_p_R, !_tipo);
   digitalWrite(_p_G, !_tipo);

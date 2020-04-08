@@ -11,11 +11,13 @@
   #include "Arduino.h"
   #include <Servo.h>
 
+  
+
   /* Constantes | Canciones */
-  #define EXORCISTA       0
-  #define STRANGER_THINGS 1
-  #define SAW             2
-  #define HALLOWEEN       3
+  #define STRANGER_THINGS 0
+  #define SAW             1
+  #define HALLOWEEN       2
+  #define EXORCISTA       3
   #define WALKING_DEAD    4
   #define JACK            5
 
@@ -87,9 +89,7 @@
       float medir();
       void activar(int dist, int cancion, int color);
       void color_e(int color);
-      void color_a(int color);
-      
-      Servo quijada;
+      void color_a();
     private:
       int _p_buzzer;
       int _p_trig;
