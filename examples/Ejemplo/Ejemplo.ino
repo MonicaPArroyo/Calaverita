@@ -51,7 +51,7 @@
     Donde:
       distancia -->   Indica la distancia mínima con la que se activa la calaverita
       cancion   -->   Indica la canción que el buzzer reproduce
-      color     -->   Indica el color que el LEd RGB emite
+      color     -->   Indica el color que el LED RGB emite
 
    Por Mónica P. Arroyo, 8 de abril del 2020.
 */
