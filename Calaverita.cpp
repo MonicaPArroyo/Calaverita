@@ -2,7 +2,7 @@
    Calaverita.cpp - Librería para crear con facilidad una
    "calaverita" que detecte distancia, mueva la quijada,
    genere sonidos y emita luz de colores.
-   Creada por Mónica P. Arroyo, 27 de marzo del 2020.
+   Creada por Mónica P. Arroyo, 8 de abril del 2020.
 */
 
 #include "Arduino.h"
@@ -20,6 +20,7 @@ int notas[6][32] =
   {g4,  p_e, g4,  p_e, g4,  p_e, g4,  g4s, f4,  p_e, f4,  p_e, f4,  p_e, f4,  g4s, g4, p_e, g4,  p_e, g4,  p_e, g4,  g4s, f4,  p_e, f4,  g4s, g4,  p_e, g4,  p_e} // THIS IS HALLOWEEN
 };
 
+/* MATRIZ DE TIEMPOS */
 int tiempos[6][32] =
 {
   {q,  q,  q,  q,  q,  q,  q,  q},  // STRANGER THINGS
@@ -30,6 +31,7 @@ int tiempos[6][32] =
   {td, t,  td, t,  td, t,  td, td, td, t,  td, t,  td, t,  td, td, td, t,  td, t,  td, t,  td, td, td, t,  td, td, td, t,  td, t} // THIS IS HALLOWEEN
 };
 
+/* NÚMERO DE NOTAS */
 int n_notas[6] =
 {
   8,  // STRANGER THINGS
@@ -40,9 +42,11 @@ int n_notas[6] =
   32  // THIS IS HALLOWEEN
 };
 
+/* Función para inicializar el objeto */
 void Calaverita:: inicializar(int tipo)
 {
-  _p_buzzer = 11;
+  // Pines asignados a los componentes conectados 
+  _p_buzzer = 11; 
   _p_trig = 10;
   _p_echo = 9;
   _p_R = 7;
@@ -64,14 +68,17 @@ void Calaverita:: inicializar(int tipo)
   quijada.write(5);
 }
 
+/* Función para ejecutar todo el funcionamiento de los componentes */
 void Calaverita::activar(int dist, int cancion, int color)
 {
 
-  float distancia = Calaverita::medir();
+  float distancia = Calaverita::medir(); 
   int tiempo_an = 0;
   int tiempo_ac;
   int bandera = 0;
 
+  if(dist > 150) dist = 150;
+  if(dist < 5) dist = 5;
   if (distancia <= dist)
   {
     for (int x = 0; x < n_notas[cancion]; x ++)
@@ -80,7 +87,7 @@ void Calaverita::activar(int dist, int cancion, int color)
       delay(tiempos[cancion][x]);
       noTone(_p_buzzer);
       tiempo_ac = millis();
-      if (tiempo_ac - tiempo_an > 300) //VERIFICAR ESTE NÚMERO
+      if (tiempo_ac - tiempo_an > 300)
       {
         tiempo_an = tiempo_ac;
         if (!bandera)
@@ -105,23 +112,9 @@ void Calaverita::activar(int dist, int cancion, int color)
     quijada.write(5);
     delay(100);
   }
-  //  if(dist <= centim)
-  //  {
-  //    //AQUÍ VA EL FOR
-  //    //quijada.write(5);
-  //    //tone(pin_buzzer, DO);
-  //    delay(200);
-  //    //tone(pin_buzzer, DO);
-  //    delay(200);
-  //    //quijada.write(90);
-  //  }
-  //  else
-  //  {
-  //    //quijada.write(90);
-  //    //noTone(pin_buzzer);
-  //  }
 }
 
+/* Función para medir la distancia con el ultrasónico */
 float Calaverita::medir()
 {
   int tiempo;
@@ -134,46 +127,47 @@ float Calaverita::medir()
   return distancia;
 }
 
+/* Función para encender el LED RGB con el color seleccionado */
 void Calaverita::color_e(int color)
 {
   switch (color)
   {
-    case 1:
+    case 1: //ROJO
       digitalWrite(_p_R, _tipo);
       digitalWrite(_p_G, !_tipo);
       digitalWrite(_p_B, !_tipo);
       break;
-    case 2:
+    case 2: //VERDE
       digitalWrite(_p_R, !_tipo);
       digitalWrite(_p_G, _tipo);
       digitalWrite(_p_B, !_tipo);
       break;
-    case 3:
+    case 3: //AZUL
       digitalWrite(_p_R, !_tipo);
       digitalWrite(_p_G, !_tipo);
       digitalWrite(_p_B, _tipo);
       break;
-    case 4:
+    case 4: // MAGENTA
       digitalWrite(_p_R, _tipo);
       digitalWrite(_p_G, !_tipo);
       digitalWrite(_p_B, _tipo);
       break;
-    case 5:
+    case 5: //AMARILLO
       digitalWrite(_p_R, _tipo);
       digitalWrite(_p_G, _tipo);
       digitalWrite(_p_B, !_tipo);
       break;
-    case 6:
+    case 6: //CYAN
       digitalWrite(_p_R, !_tipo);
       digitalWrite(_p_G, _tipo);
       digitalWrite(_p_B, _tipo);
       break;
-    case 7:
+    case 7: //BLANCO
       digitalWrite(_p_R, _tipo);
       digitalWrite(_p_G, _tipo);
       digitalWrite(_p_B, _tipo);
       break;
-    case 8:
+    case 8: //ALEATORIO
       digitalWrite(_p_R, random(2));
       digitalWrite(_p_G, random(2));
       digitalWrite(_p_B, random(2));
@@ -181,6 +175,7 @@ void Calaverita::color_e(int color)
   }
 }
 
+/* Función para apagar el LED RGB */
 void Calaverita::color_a()
 {
   digitalWrite(_p_R, !_tipo);
