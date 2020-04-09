@@ -1,10 +1,10 @@
 #include<Servo.h>
 #include "Calaverita.h"
-Calaverita calaverita(ANODO);
+Calaverita calaverita;//(ANODO);
 
 void setup()
 {
-
+  calaverita.inicializar(ANODO);
 }
 
 void loop()

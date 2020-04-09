@@ -9,7 +9,6 @@
 #include<Servo.h>
 #include "Calaverita.h"
 
-Servo quijada;
 /* MATRIZ DE CANCIONES */
 int notas[6][32] =
 {
@@ -31,7 +30,7 @@ int tiempos[6][32] =
   {td, t,  td, t,  td, t,  td, td, td, t,  td, t,  td, t,  td, td, td, t,  td, t,  td, t,  td, td, td, t,  td, td, td, t,  td, t} // THIS IS HALLOWEEN
 };
 
-int n_notas[6] = 
+int n_notas[6] =
 {
   8,  // STRANGER THINGS
   11, // HELLO ZEPP
@@ -41,7 +40,7 @@ int n_notas[6] =
   32  // THIS IS HALLOWEEN
 };
 
-Calaverita:: Calaverita(int tipo)
+void Calaverita:: inicializar(int tipo)
 {
   _p_buzzer = 11;
   _p_trig = 10;
@@ -51,16 +50,18 @@ Calaverita:: Calaverita(int tipo)
   _p_B = 6;
   _p_servo = 3;
   _tipo = tipo;
-  digitalWrite(_p_R, !_tipo);
-  digitalWrite(_p_G, !_tipo);
-  digitalWrite(_p_B, !_tipo);
+
   pinMode(_p_buzzer, OUTPUT);
   pinMode(_p_trig, OUTPUT);
   pinMode(_p_echo, INPUT);
   pinMode(_p_R, OUTPUT);
   pinMode(_p_G, OUTPUT);
   pinMode(_p_B, OUTPUT);
+  digitalWrite(_p_R, !_tipo);
+  digitalWrite(_p_G, !_tipo);
+  digitalWrite(_p_B, !_tipo);
   quijada.attach(_p_servo);
+  quijada.write(5);
 }
 
 void Calaverita::activar(int dist, int cancion, int color)
@@ -70,38 +71,39 @@ void Calaverita::activar(int dist, int cancion, int color)
   int tiempo_an = 0;
   int tiempo_ac;
   int bandera = 0;
-  
+
   if (distancia <= dist)
   {
-    for(int x = 0; x < n_notas[cancion]; x ++)
+    for (int x = 0; x < n_notas[cancion]; x ++)
     {
       tone(_p_buzzer, notas[cancion][x]);
       delay(tiempos[cancion][x]);
       noTone(_p_buzzer);
       tiempo_ac = millis();
-      if (tiempo_ac - tiempo_an > 400) //VERIFICAR ESTE NÚMERO
+      if (tiempo_ac - tiempo_an > 300) //VERIFICAR ESTE NÚMERO
       {
         tiempo_an = tiempo_ac;
-        if(!bandera)
+        if (!bandera)
         {
-          quijada.write(0);
+          quijada.write(5);
           Calaverita::color_a();
         }
         else
         {
-          quijada.write(20);
+          quijada.write(90);
           Calaverita::color_e(color);
         }
         bandera = !bandera;
       }
-      if(Calaverita::medir() > dist) break;
+      if (Calaverita::medir() > dist) break;
     }
   }
   else
   {
     noTone(_p_buzzer);
     color_a();
-    delay(500);
+    quijada.write(5);
+    delay(100);
   }
   //  if(dist <= centim)
   //  {
