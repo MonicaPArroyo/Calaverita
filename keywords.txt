@@ -12,6 +12,7 @@ Calaverita	KEYWORD1
 # Metodos y funciones (KEYWORD2)
 #######################################
 
+inicializar	KEYWORD2
 medir	KEYWORD2
 activar	KEYWORD2
 color_e	KEYWORD2
@@ -21,8 +22,12 @@ color_a	KEYWORD2
 # Constantes (LITERAL1)
 #######################################
 
-EXORCISTA	LITERAL1
 STRANGER_THINGS	LITERAL1
+SAW	LITERAL1
+HALLOWEEN	LITERAL1
+EXORCISTA	LITERAL1
+WALKING_DEAD	LITERAL1
+JACK	LITERAL1
 
 ROJO	LITERAL1
 VERDE	LITERAL1

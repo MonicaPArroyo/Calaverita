@@ -10,5 +10,5 @@ void setup()
 void loop()
 {
 
-  calaverita.activar(15, JACK, ROJO);
+  calaverita.activar(15, SAW, ALEATORIO);
 }
