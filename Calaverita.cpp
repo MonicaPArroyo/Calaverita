@@ -77,7 +77,7 @@ void Calaverita::activar(int dist, int cancion, int color)
   int tiempo_ac;
   int bandera = 0;
 
-  x = constrain(x, 5, 150); //limita el valor de la distancia a estar entre 5 y 150
+  //x = constrain(x, 5, 150); //limita el valor de la distancia a estar entre 5 y 150
   
   if (distancia <= dist)
   {
