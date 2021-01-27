@@ -47,7 +47,7 @@ Librería de Arduino para crear con facilidad una "calaverita" que detecte dista
 | `MAGENTA` | Para el color magenta |
 | `AMARILLO` | Para el color amarillo |
 | `CYAN` | Para el color cyan |
-| `BLANCO` | Para el color BLANCO |
+| `BLANCO` | Para el color blanco |
 | `ALEATORIO` | Para obtener colores aleatorios |
 
 ## Distancia ##
