@@ -67,4 +67,4 @@ Donde:
 - `cancion` - Indica la canción que el buzzer reproduce
 - `color` - Indica el color que el LED RGB emite
 
-Por Mónica P. Arroyo (monica@cualitec.com), 8 de abril del 2020.
+Por Mónica P. Arroyo (monicaparroyo7@gmail.com), 8 de abril del 2020.
